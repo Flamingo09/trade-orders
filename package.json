@@ -1,10 +1,10 @@
 {
-  "name": "react-slingshot",
-  "version": "7.0.1",
-  "description": "Starter kit for creating apps with React and Redux",
+  "name": "@trading/store-ui",
+  "version": "1.0.0",
+  "description": "This Application is one of the front-end used in @trading container",
   "engines": {
-    "node": ">=8",
-    "npm": ">=3"
+    "node": ">=12",
+    "npm": ">=6"
   },
   "scripts": {
     "preinstall": "node tools/nodeVersionCheck.js",
@@ -12,7 +12,7 @@
     "remove-demo": "babel-node tools/removeDemo.js",
     "start-message": "babel-node tools/startMessage.js",
     "prestart": "npm run start-message",
-    "start": "concurrently -k -r -s first \"npm run test:watch\" \"npm run open:src\" \"npm run lint:watch\"",
+    "start": "concurrently -k -r -s first  \"npm run open:src\" \"npm run lint:watch\"",
     "open:src": "babel-node tools/srcServer.js",
     "open:dist": "babel-node tools/distServer.js",
     "lint": "esw webpack.config.* src tools --color",
@@ -32,26 +32,29 @@
   "author": "Cory House",
   "license": "MIT",
   "dependencies": {
-    "@hot-loader/react-dom": "16.10.2",
+    "@hot-loader/react-dom": "^16.10.2",
     "connected-react-router": "6.5.2",
     "object-assign": "4.1.1",
-    "react": "16.11.0",
-    "react-dom": "16.11.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "react-redux": "7.1.1",
     "react-router-dom": "5.1.2",
     "redux": "4.0.4",
-    "redux-thunk": "2.3.0"
+    "redux-thunk": "2.3.0",
+    "react-hot-loader": "^4.12.13"
   },
   "devDependencies": {
     "@babel/cli": "7.6.4",
     "@babel/core": "7.6.4",
     "@babel/node": "7.6.3",
     "@babel/plugin-proposal-class-properties": "7.5.5",
+    "@babel/plugin-proposal-decorators": "7.10.5",
     "@babel/plugin-transform-react-constant-elements": "7.6.3",
     "@babel/plugin-transform-runtime": "7.6.2",
     "@babel/polyfill": "7.6.0",
     "@babel/preset-env": "7.6.3",
     "@babel/preset-react": "7.6.3",
+    "@babel/preset-typescript": "7.10.4",
     "acorn": "7.1.0",
     "ajv": "6.10.2",
     "autoprefixer": "9.7.0",
@@ -69,11 +72,15 @@
     "cssnano": "4.1.10",
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "1.15.1",
-    "eslint": "6.6.0",
-    "eslint-plugin-import": "2.18.2",
-    "eslint-plugin-react": "7.16.0",
+    "eslint": "7.2.0",
+    "eslint-config-airbnb": "18.2.0",
+    "eslint-plugin-import": "2.21.2",
+    "eslint-plugin-jsx-a11y": "6.3.0",
+    "eslint-plugin-react": "7.20.0",
+    "eslint-plugin-react-hooks": "4.0.0",
     "eslint-watch": "6.0.1",
     "file-loader": "4.2.0",
+    "fork-ts-checker-webpack-plugin": "^1.5.0",
     "hard-source-webpack-plugin": "0.13.1",
     "history": "4.10.1",
     "html-webpack-plugin": "3.2.0",
@@ -97,6 +104,7 @@
     "rimraf": "3.0.0",
     "sass-loader": "8.0.0",
     "style-loader": "1.0.0",
+    "typescript": "^3.6.3",
     "url-loader": "2.2.0",
     "webpack": "4.41.2",
     "webpack-bundle-analyzer": "3.6.0",
@@ -104,6 +112,7 @@
     "webpack-hot-middleware": "2.25.0"
   },
   "keywords": [
+    "typescript",
     "react",
     "reactjs",
     "react-router",
@@ -118,10 +127,6 @@
     "boilerplate",
     "starter"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/coryhouse/react-slingshot"
-  },
   "jest": {
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/tools/assetsTransformer.js",
@@ -175,7 +180,8 @@
       "eslint:recommended",
       "plugin:import/errors",
       "plugin:import/warnings",
-      "plugin:react/recommended"
+      "plugin:react/recommended",
+      "airbnb/hooks"
     ],
     "plugins": [
       "react"
