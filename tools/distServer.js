@@ -3,7 +3,7 @@
 
 import browserSync from 'browser-sync';
 import historyApiFallback from 'connect-history-api-fallback';
-import {chalkProcessing} from './chalkConfig';
+import { chalkProcessing } from './chalkConfig';
 
 /* eslint-disable no-console */
 
@@ -11,17 +11,21 @@ console.log(chalkProcessing('Opening production build...'));
 
 // Run Browsersync
 browserSync({
-  port: 4000,
+  port: 8080,
   ui: {
-    port: 4001
+    port: 8081,
   },
   server: {
-    baseDir: 'dist'
+    baseDir: 'dist',
   },
 
-  files: [
-    'src/*.html'
+  files: ['src/*.html'],
+  cors: true,
+  middleware: [
+    function (req, res, next) {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      next();
+    },
+    historyApiFallback(),
   ],
-
-  middleware: [historyApiFallback()]
 });

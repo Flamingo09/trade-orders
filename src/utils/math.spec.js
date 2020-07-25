@@ -1,16 +1,16 @@
-import {roundNumber, addArray, convertToPennies} from './math';
+import { roundNumber, addArray, convertToPennies } from './math';
 
 describe('Math Helper', () => {
   describe('roundNumber', () => {
-    it('returns \'\' when passed NaN', () => {
+    it("returns '' when passed NaN", () => {
       expect(roundNumber(NaN)).toEqual('');
     });
 
-    it('returns \'\' when passed undefined', () => {
+    it("returns '' when passed undefined", () => {
       expect(roundNumber(undefined)).toEqual('');
     });
 
-    it('returns \'\' when passed null', () => {
+    it("returns '' when passed null", () => {
       expect(roundNumber(null)).toEqual('');
     });
 

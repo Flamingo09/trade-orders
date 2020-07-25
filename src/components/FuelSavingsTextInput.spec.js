@@ -8,7 +8,7 @@ describe('<FuelSavingsTextInput />', () => {
       name: 'testName',
       onChange: jest.fn(),
       placeholder: 'Type Here',
-      value: 100
+      value: 100,
     };
 
     const wrapper = shallow(<FuelSavingsTextInput {...props} />);
@@ -21,11 +21,11 @@ describe('<FuelSavingsTextInput />', () => {
       name: 'newMpg',
       onChange: jest.fn(),
       placeholder: null,
-      value: 100
+      value: 100,
     };
 
     const wrapper = shallow(<FuelSavingsTextInput {...props} />);
-    const changeEvent = {target: {value: 101}};
+    const changeEvent = { target: { value: 101 } };
 
     expect(props.onChange).not.toBeCalled();
     wrapper.simulate('change', changeEvent);
@@ -38,7 +38,7 @@ describe('<FuelSavingsTextInput />', () => {
       name: 'newMpg',
       onChange: jest.fn(),
       placeholder: 'Type Here',
-      value: 100
+      value: 100,
     };
 
     const wrapper = shallow(<FuelSavingsTextInput {...props} />);

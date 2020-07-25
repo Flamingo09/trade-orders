@@ -1,15 +1,21 @@
-import {necessaryDataIsProvidedToCalculateSavings, calculateMilesDrivenPerMonth, calculateSavingsPerMonth} from './fuelSavings';
+import {
+  necessaryDataIsProvidedToCalculateSavings,
+  calculateMilesDrivenPerMonth,
+  calculateSavingsPerMonth,
+} from './fuelSavings';
 
 describe('Fuel Savings Calculator', () => {
   describe('necessaryDataIsProvidedToCalculateSavings', () => {
-    it('returns false when necessary data isn\'t provided', () => {
+    it("returns false when necessary data isn't provided", () => {
       // arrange
       const settings = {
-        newMpg: 20
+        newMpg: 20,
       };
 
       // assert
-      expect(necessaryDataIsProvidedToCalculateSavings(settings)).toEqual(false);
+      expect(necessaryDataIsProvidedToCalculateSavings(settings)).toEqual(
+        false
+      );
     });
 
     it('returns true when necessary data is provided', () => {
@@ -17,9 +23,9 @@ describe('Fuel Savings Calculator', () => {
       const settings = {
         newMpg: 20,
         tradeMpg: 10,
-        newPpg: 1.50,
-        tradePpg: 1.50,
-        milesDriven: 100
+        newPpg: 1.5,
+        tradePpg: 1.5,
+        milesDriven: 100,
       };
 
       // assert
@@ -44,7 +50,10 @@ describe('Fuel Savings Calculator', () => {
       const milesPerMonth = 300;
 
       // act
-      const milesPerMonthCalculated = calculateMilesDrivenPerMonth(milesPerMonth, 'month');
+      const milesPerMonthCalculated = calculateMilesDrivenPerMonth(
+        milesPerMonth,
+        'month'
+      );
 
       // assert
       expect(milesPerMonthCalculated).toEqual(milesPerMonth);
@@ -65,8 +74,10 @@ describe('Fuel Savings Calculator', () => {
       // arrange
       const milesPerYear = 1200;
 
-        // act & assert
-        expect(() => calculateMilesDrivenPerMonth(milesPerYear, 'minute')).toThrow('Unknown milesDrivenTimeframe passed: minute');
+      // act & assert
+      expect(() =>
+        calculateMilesDrivenPerMonth(milesPerYear, 'minute')
+      ).toThrow('Unknown milesDrivenTimeframe passed: minute');
     });
   });
 
@@ -79,7 +90,7 @@ describe('Fuel Savings Calculator', () => {
         newPpg: 3.75,
         newMpg: 38,
         milesDriven: 120,
-        milesDrivenTimeframe: 'week'
+        milesDrivenTimeframe: 'week',
       };
 
       // act
@@ -97,7 +108,7 @@ describe('Fuel Savings Calculator', () => {
         newPpg: 3.75,
         newMpg: 38,
         milesDriven: 550,
-        milesDrivenTimeframe: 'month'
+        milesDrivenTimeframe: 'month',
       };
 
       // act
@@ -115,7 +126,7 @@ describe('Fuel Savings Calculator', () => {
         newPpg: 3.75,
         newMpg: 18,
         milesDriven: 14550,
-        milesDrivenTimeframe: 'year'
+        milesDrivenTimeframe: 'year',
       };
 
       // act
@@ -133,7 +144,7 @@ describe('Fuel Savings Calculator', () => {
         newPpg: 3.75,
         newMpg: 18,
         milesDriven: 0,
-        milesDrivenTimeframe: 'year'
+        milesDrivenTimeframe: 'year',
       };
 
       // act
