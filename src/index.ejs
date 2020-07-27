@@ -24,19 +24,19 @@
   <script type="systemjs-importmap">
     {
       "imports": {
-        "@trading/dashboard": "%REACT_APP_DASHBOARD%/static/js/bundle.js",
-        "@trading/trade-orders": "%REACT_APP_PAYMENT%/static/js/bundle.js",
-        "@trading/executed-trades": "%REACT_APP_DISCUSSION%/static/js/bundle.js"
+        "react": "https://cdn.jsdelivr.net/npm/react@16.13.0/umd/react.development.js",
+        "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@16.13.0/umd/react-dom.development.js",
+        "@trading/trade-orders": "http://localhost:8080/main.js"
       }
     }
   </script>
-  <title>Parcel Container</title>
+  <title>Trade Orders</title>
 </head>
 <body>
-<div id="app"></div>
+<div id="trade-orders-module" isRenderedIndependently></div>
 <script>
     var SystemJS = System;
-    System.import('@trading/dashboard');
+    System.import('@trading/trade-orders');
 </script>
 </body>
 </html>

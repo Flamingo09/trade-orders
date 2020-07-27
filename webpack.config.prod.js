@@ -16,7 +16,7 @@ export default {
     // To support react-hot-loader
     alias: {
       'react-dom': '@hot-loader/react-dom',
-    },
+    }
   },
   devtool: 'source-map', // more info:https://webpack.js.org/guides/production/#source-mapping and https://webpack.js.org/configuration/devtool/
   entry: path.resolve(__dirname, 'src/index'),
@@ -26,6 +26,7 @@ export default {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
     filename: '[name].[contenthash].js',
+    libraryTarget: 'umd2'
   },
   plugins: [
     // Tells React to build in prod mode. https://facebook.github.io/react/downloads.html
@@ -63,6 +64,7 @@ export default {
       {
         test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
+        include: path.join(__dirname, 'src'),
         use: {
           loader: 'babel-loader',
           options: {
@@ -176,4 +178,9 @@ export default {
       },
     ],
   },
+  externals: [
+    'react',
+    'react-dom',
+    /^@trading\/.+$/
+  ]
 };

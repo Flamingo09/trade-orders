@@ -10,7 +10,7 @@ export default {
     // To support react-hot-loader
     alias: {
       'react-dom': '@hot-loader/react-dom',
-    },
+    }
   },
   devtool: 'cheap-module-eval-source-map', // more info:https://webpack.js.org/guides/development/#using-source-maps and https://webpack.js.org/configuration/devtool/
   entry: [
@@ -25,7 +25,8 @@ export default {
   output: {
     path: path.resolve(__dirname, 'dist'), // Note: Physical files are only output by the production build task `npm run build`.
     publicPath: '/',
-    filename: 'bundle.js',
+    filename: 'main.js',
+    libraryTarget: 'umd2'
   },
   plugins: [
     new HardSourceWebpackPlugin(),
@@ -47,6 +48,7 @@ export default {
       {
         test: /\.(j|t)sx?$/,
         exclude: /node_modules/,
+        include: path.join(__dirname, 'src'),
         use: {
           loader: 'babel-loader',
           options: {
@@ -65,6 +67,7 @@ export default {
               ['@babel/plugin-proposal-decorators', { legacy: true }],
               ['@babel/plugin-proposal-class-properties', { loose: true }],
               'react-hot-loader/babel',
+              '@babel/plugin-transform-runtime'
             ],
           },
         },
@@ -150,4 +153,9 @@ export default {
       },
     ],
   },
+  externals: [
+    'react',
+    'react-dom',
+    /^@trading\/.+$/
+  ]
 };

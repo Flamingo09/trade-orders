@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Varun } from './Varun';
 
 const HomePage = () => {
   return (
@@ -14,7 +13,6 @@ const HomePage = () => {
         </li>
         <li>Remove the demo and start coding: npm run remove-demo</li>
       </ol>
-      <Varun />
     </div>
   );
 };
