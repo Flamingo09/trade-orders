@@ -155,7 +155,6 @@ export default {
   },
   externals: [
     'react',
-    'react-dom',
-    /^@trading\/.+$/
+    'react-dom'
   ]
 };
