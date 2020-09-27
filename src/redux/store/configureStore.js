@@ -6,10 +6,8 @@ import { createBrowserHistory } from 'history';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import createRootReducer from '../reducers';
 
-export const history = createBrowserHistory();
-const connectRouterHistory = connectRouter(history);
-
-function configureStoreProd(initialState) {
+function configureStoreProd(basename, initialState) {
+  const history = createBrowserHistory({basename: basename});
   const reactRouterMiddleware = routerMiddleware(history);
   const middlewares = [
     // Add other middleware on this line...
@@ -20,14 +18,18 @@ function configureStoreProd(initialState) {
     reactRouterMiddleware,
   ];
 
-  return createStore(
+  const store = createStore(
     createRootReducer(history), // root reducer with router state
     initialState,
     compose(applyMiddleware(...middlewares))
   );
+  return {store, history};
 }
 
-function configureStoreDev(initialState) {
+function configureStoreDev(basename, initialState) {
+  const history = createBrowserHistory({basename: basename});
+  const connectRouterHistory = connectRouter(history);
+
   const reactRouterMiddleware = routerMiddleware(history);
   const middlewares = [
     // Add other middleware on this line...
@@ -41,8 +43,8 @@ function configureStoreDev(initialState) {
     reactRouterMiddleware,
   ];
 
-  const composeEnhancers =
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // add support for Redux dev tools
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true, traceLimit: 25 }) || compose; // add support for Redux dev tools
   const store = createStore(
     createRootReducer(history), // root reducer with router state
     initialState,
@@ -57,7 +59,7 @@ function configureStoreDev(initialState) {
     });
   }
 
-  return store;
+  return {store, history};
 }
 
 const configureStore =

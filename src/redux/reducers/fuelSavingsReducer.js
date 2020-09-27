@@ -2,11 +2,11 @@ import objectAssign from 'object-assign';
 import {
   SAVE_FUEL_SAVINGS,
   CALCULATE_FUEL_SAVINGS,
-} from '../constants/actionTypes';
+} from '../../constants/actionTypes';
 import {
   necessaryDataIsProvidedToCalculateSavings,
   calculateSavings,
-} from '../utils/fuelSavings';
+} from '../../utils/fuelSavings';
 import initialState from './initialState';
 
 // IMPORTANT: Note that with Redux, state should NEVER be changed.

@@ -27,14 +27,14 @@
       "imports": {
         "react": "https://cdn.jsdelivr.net/npm/react@16.13.0/umd/react.development.js",
         "react-dom": "https://cdn.jsdelivr.net/npm/react-dom@16.13.0/umd/react-dom.development.js",
-        "@trading/trade-orders": "http://localhost:8080/main.js"
+        "@trading/trade-orders": "<%= process.env.TRADE_ORDERS %>"
       }
     }
   </script>
   <title>Trade Orders</title>
 </head>
 <body>
-<div id="trade-orders-module" isRenderedIndependently></div>
+<div id="trade-orders-module"/>
 <script>
     var SystemJS = System;
     System.import('@trading/trade-orders');

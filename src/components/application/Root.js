@@ -1,39 +1,43 @@
 import React, {Component} from 'react';
-import {ConnectedRouter} from 'connected-react-router';
 import {AppContainer} from 'react-hot-loader';
 import {render} from 'react-dom';
-import {Provider} from 'react-redux';
-import configureStore, {history} from '../../store/configureStore';
-import App from './App';
+import configureStore, {history} from '../../redux/store/configureStore';
 import './../../styles/styles.scss';
+import WrapperApp from "./WrapperApp";
 
 require('./../../favicon.ico');
 
 const store = configureStore();
 
+const domElement = document.getElementById('trade-orders-module');
+
 export default class Root extends Component {
   render() {
     return (
       <AppContainer>
-        <Provider store={store}>
-          <ConnectedRouter history={history}>
-            <App/>
-          </ConnectedRouter>
-        </Provider>
+        <WrapperApp basename={this.props}/>
       </AppContainer>
     );
   }
 }
 
+if(domElement) {
+  render(
+    <AppContainer>
+      <WrapperApp />
+    </AppContainer>,
+    domElement
+  );
+}
+
 if (module.hot) {
-  module.hot.accept('./Root', () => {
-    const NewRoot = require('./Root').default;
-    let element = document.getElementById('trade-orders-module');
-    if(element.getAttribute('isRenderedIndependently')) {
-      render(
-        <NewRoot />,
-        element
-      );
-    }
+  module.hot.accept('./WrapperApp', () => {
+    const NewRoot = require('./WrapperApp').default;
+    render(
+      <AppContainer>
+        <NewRoot/>
+      </AppContainer>,
+      domElement
+    );
   });
 }

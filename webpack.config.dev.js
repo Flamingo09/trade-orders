@@ -2,7 +2,13 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
 import HardSourceWebpackPlugin from 'hard-source-webpack-plugin';
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+
+const GLOBALS = {
+  'process.env' : {
+    NODE_ENV: JSON.stringify('DEVELOPMENT'),
+    TRADE_ORDERS : JSON.stringify(process.env.TRADE_ORDERS)
+  }
+};
 
 export default {
   resolve: {
@@ -29,6 +35,7 @@ export default {
     libraryTarget: 'umd2'
   },
   plugins: [
+    new webpack.DefinePlugin(GLOBALS),
     new HardSourceWebpackPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
@@ -40,8 +47,7 @@ export default {
         collapseWhitespace: true,
       },
       inject: true,
-    }),
-    new ForkTsCheckerWebpackPlugin(),
+    })
   ],
   module: {
     rules: [
@@ -132,8 +138,34 @@ export default {
       },
     ],
   },
+  optimization: {
+    moduleIds: 'hashed',
+    runtimeChunk: 'single',
+    splitChunks: {
+      chunks: 'all',
+      minSize: 30000,
+      maxSize: 0,
+      minChunks: 1,
+      maxAsyncRequests: 6,
+      maxInitialRequests: 4,
+      automaticNameDelimiter: '~',
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      },
+    },
+  },
   externals: [
     'react',
-    'react-dom'
+    'react-dom',
+    /^@trading\/.+$/
   ]
 };

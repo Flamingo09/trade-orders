@@ -6,8 +6,11 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import path from 'path';
 
 const GLOBALS = {
-  'process.env.NODE_ENV': JSON.stringify('production'),
-  __DEV__: false,
+  'process.env' : {
+    NODE_ENV: JSON.stringify('PRODUCTION'),
+    '@trading/trade-orders' : JSON.stringify('process.env.@trading/trade-orders'),
+    __DEV__: false
+  }
 };
 
 export default {
@@ -178,8 +181,34 @@ export default {
       },
     ],
   },
+  optimization: {
+    moduleIds: 'hashed',
+    runtimeChunk: 'single',
+    splitChunks: {
+      chunks: 'all',
+      minSize: 30000,
+      maxSize: 0,
+      minChunks: 1,
+      maxAsyncRequests: 6,
+      maxInitialRequests: 4,
+      automaticNameDelimiter: '~',
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      },
+    },
+  },
   externals: [
     'react',
-    'react-dom'
+    'react-dom',
+    /^@trading\/.+$/
   ]
 };
